@@ -18,17 +18,19 @@ This game was created by a group of two individuals for an undergraduate assembl
 
 #### Steps
 
-1. Download main.asm
+1. Download main.asm.
 2. Create a Visual Studio project. Adjust the build settings to be compatible with masm32.
+3. Replace the .asm file in the project with main.asm.
+4. Download and retireve each sound from the sounds\ folder.
+5. Build the project and run. There should be no errors.
+
+##### Tips and Additional Setup
 
 If you have downloaded the 32-bit Visual Studio project from kipirvine, then you can reuse
 it for future projects.
 ```
 Located at C:\Irvine\Examples\Project_sample\
 ```
-
-3. Replace the .asm file in the project with main.asm
-4. Download and retireve each sound from the sounds\ folder
 
 For the sounds to work properly, they must be placed in the below location.
 ```
@@ -42,4 +44,25 @@ sound in the .asm file starting at line 87
 ```
 Example: explosionSound BYTE "C:\Irvine\shipexploding.wav", 0
 ```
-5. Build the project and run. There should be no errors.
+
+## How To Play
+
+### Basics
+
+Battleship is a naval stradegy game. Your goal is to defeat the opposing naval fleet. The fleet consists of five different ships.
+ 
+ * Carrier
+ * Battleship
+ * Submarine
+ * Destroyer
+ * Sweeper
+ 
+Once you arrange your ships, the game is started. The game system is turn based, meaning that each player alternates their moves one by one. Once all ally or enemy ships are destroyed then the game is over amd the winning fleet is declared.
+
+**One Player** : One user-controlled player, another bot-controlled player
+
+### Ship Placement
+
+
+
+### Turn Rotation
