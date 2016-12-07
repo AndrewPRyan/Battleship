@@ -115,8 +115,6 @@ The game has ended. To play the game again, you must rerun the program as there 
 
 All contributers to the project
 
-#### Created
-
-Fall 2016
-
 **Special thanks to all contributers who helped create this project and thanks to the instructor who made all of this possible**
+
+Created Fall 2016
