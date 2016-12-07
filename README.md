@@ -73,6 +73,8 @@ To place a ship, the player must click on a coordinate on their map. Different c
 ```
 The ships are not allowed to breach the bounds of the map or overlap with each other. The game will prevent this from happening and will display an error message asking to place again in a valid location.
 
+**IMPORTANT** : To fully experience ship placement, you must have a mouse/trackpad/trackball that allows for left and right mouse clicks. There is no alternative to this feature.
+
 Once the ships are placed, the game proceeds to the computer placement.
 
 #### Computer Placement
@@ -81,4 +83,40 @@ The computer bot places its ships after the user is completed placing theirs. Th
 
 Once the computer has placed its ships, the turn rotation begins.
 
+### Statistics and Scoring System
+
+There is no set scoring system in Battleship. Rather, there are scores to keep track of the current state of the fleet. The game will display the total health (which is calculated by the amount of health left in each ship), and the amount of ships remaining (which will change color the closer the amount gets to 0). These statistics are displayed below each map for both the player and the computer. 
+
 ### Turn Rotation
+
+For each turn, the player selects coordinate on the computer map they wish to attack. Once a coordinate is clicked, the user interface displays if the player has either hit or miss an enemy ship. This is done by changing the appearance of the coordinate selected.
+
+ * Red X for Hit
+ * White O for Miss
+ 
+Under Directions, the game outputs if the attack was a hit or miss. This is another way to be notified of the last move.
+**WARNING** : If the same coordinate is selected more than once, it will count it as a turn. Be wise, this counts as your turn.
+
+Each time a ship is destroyed by the player or computer, the game displays an explosion screen to make sure the player knows the current state of the game. On either map, the X for hit will not change color or display if that ship is sunk. It is up to the player to know which ships are sunk and which ones are in the process of being sunk.
+
+After the player has completed their turn, the computer turn is automatically performed. Under Directions, the game notifies when the computer is attacking the player. The player must wait until the computers turn results are displayed in order to attack again. The computer attack will be displayed on the player map with the same UI changes as the player attack.
+
+There are delays in place for each turn to ensure enough time to plan your next attack. There is no time limit for planning an attack, so the player can take as long as they want to attack the computer.
+
+### Goal
+
+Once the player has destroyed all of the computers ships, then they will be welcomed with a victory screen. If the player fails to destroy all computer ships before the computer destroys theirs, then they will be greeted with a defeat screen.
+
+The game has ended. To play the game again, you must rerun the program as there is no feature to restart from the same instance of the game.
+
+## Acknowledgments
+
+### Authors
+
+All contributers to the project
+
+#### Created
+
+Fall 2016
+
+**Special thanks to all contributers who helped create this project and thanks to the instructor who made all of this possible**
