@@ -1,14 +1,22 @@
 # Battleship
 Battleship created in MASM32.
 
-## Installation
+## Getting Started
 
-### Prerequisites
+The project must be set up and all dependencies must be installed. This project will only run in Visual Studio or any IDE that supports masm32. It can only be run on Windows.
+
+### Background
+
+This game was created by a group of two individuals for an undergraduate assembly language course. The course focused on masm32, hence why it is coded in this language. 
+
+### Installation
+
+#### Prerequisites
 
 * Install Irvine libraries from [here](http://kipirvine.com/asm/examples/)
 * Install masm32 executable and libraries from [here](http://www.masm32.com/download.htm)
 
-### Steps
+#### Steps
 
 1. Download main.asm
 2. Create a Visual Studio project. Adjust the build settings to be compatible with masm32.
@@ -26,6 +34,9 @@ For the sounds to work properly, they must be placed in the below location.
 ```
 C:\Irvine\
 ```
+**IMPORTANT** : All sounds used must be in .wav format. This is the only format that
+works properly in the given implementation.
+
 If you would like to change the location of the sounds, you have to change your reference to the
 sound in the .asm file starting at line 87
 ```
