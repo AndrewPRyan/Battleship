@@ -49,13 +49,13 @@ Example: explosionSound BYTE "C:\Irvine\shipexploding.wav", 0
 
 ### Basics
 
-Battleship is a naval stradegy game. Your goal is to defeat the opposing naval fleet. The fleet consists of five different ships.
+Battleship is a naval stradegy game. Your goal is to defeat the opposing naval fleet. The fleet consists of five different ships of different sizes (as specified after each ship).
  
- * Carrier
- * Battleship
- * Submarine
- * Destroyer
- * Sweeper
+ * Carrier : 5
+ * Battleship : 4
+ * Submarine : 3
+ * Destroyer: 3
+ * Sweeper : 2
  
 Once you arrange your ships, the game is started. The game system is turn based, meaning that each player alternates their moves one by one. Once all ally or enemy ships are destroyed then the game is over amd the winning fleet is declared.
 
@@ -63,6 +63,22 @@ Once you arrange your ships, the game is started. The game system is turn based,
 
 ### Ship Placement
 
+#### Player Placement
 
+The player will begin the game placing their ships. This is done on the leftmost map in the user interface. Each ship will be placed in a specific order (as defined in the list above under **Basics**).
+
+To place a ship, the player must click on a coordinate on their map. Different clicks represent different orientations for placement.
+```
+Left Click: Vertical Placement   Right Click: Horizontal Placement
+```
+The ships are not allowed to breach the bounds of the map or overlap with each other. The game will prevent this from happening and will display an error message asking to place again in a valid location.
+
+Once the ships are placed, the game proceeds to the computer placement.
+
+#### Computer Placement
+
+The computer bot places its ships after the user is completed placing theirs. This is done automatically and the user is updated once this process is completed.
+
+Once the computer has placed its ships, the turn rotation begins.
 
 ### Turn Rotation
