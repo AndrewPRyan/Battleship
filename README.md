@@ -69,7 +69,7 @@ The player will begin the game placing their ships. This is done on the leftmost
 
 To place a ship, the player must click on a coordinate on their map. Different clicks represent different orientations for placement.
 ```
-Left Click: Vertical Placement   Right Click: Horizontal Placement
+          Left Click: Vertical Placement                                          Right Click: Horizontal Placement
 ```
 The ships are not allowed to breach the bounds of the map or overlap with each other. The game will prevent this from happening and will display an error message asking to place again in a valid location.
 
