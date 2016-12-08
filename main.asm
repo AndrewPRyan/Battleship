@@ -2129,15 +2129,16 @@ CheckHorizontalShipPlacementCollision PROC
 	ret
 CheckHorizontalShipPlacementCollision ENDP
 
-;-----------------------------------------------------
-; PlaceComputerShips
+;==========================================
+ PlaceComputerShips PROC
+;==========================================
 ; Fills the computer ship arrays with coordinates that
 ; correspond with spots on the computer map.
 ; (row, column, row, column, row, column....)
-; Returns: EAX = the random int
-;-----------------------------------------------------
+; Recieves: Empty arrays for each ship
+; Returns: Arrays filled with valid coordinates
+;===========================================
 
-PlaceComputerShips PROC
 
 	call PlaceComputerCarrier
 	call PlaceComputerBattleship
@@ -2158,7 +2159,14 @@ PlaceComputerShips PROC
 	ret
 PlaceComputerShips ENDP
 
+;=============================================
 PlaceComputerCarrier PROC
+;=============================================
+; Fills the computer carrier ship array
+;
+;Randomly pick horizontal or vertical
+;Picks a point on the map and fills the array in the right direction
+;=============================================
 	mov lowerbound, 1
 	mov upperbound, 2
 	call BetterRandomNumber
@@ -2189,7 +2197,16 @@ PlaceComputerCarrier PROC
 	ret
 PlaceComputerCarrier ENDP
 
+;==================================================
 PlaceComputerBattleship PROC
+;==================================================
+; Fills the computer battleship ship array
+;
+;Randomly pick horizontal or vertical
+;Picks a point on the map and fill the array in the previously established direction
+;Checks to make sure it doesn't overlap any previously placed ships
+;==================================================
+
 	start:
 		mov lowerbound, 1
 		mov upperbound, 2
@@ -2227,7 +2244,15 @@ PlaceComputerBattleship PROC
 	ret
 PlaceComputerBattleship ENDP
 
+;================================================
 PlaceComputerSubmarine PROC
+;================================================
+; Fills the computer submarine ship array
+;
+;Randomly pick horizontal or vertical
+;Picks a point on the map and fills the array in the previously established direction
+;Checks to make sure it doesn't overlap any previously placed ships
+;=================================================
 	start:
 		mov lowerbound, 1
 		mov upperbound, 2
@@ -2264,7 +2289,16 @@ PlaceComputerSubmarine PROC
 		ret
 PlaceComputerSubmarine ENDP
 
+
+;===========================================================
 PlaceComputerDestroyer PROC
+;===========================================================
+; Fills the computer submarine ship array
+;
+;Randomly pick horizontal or vertical
+;Picks a point on the map and fills the array in the right direction
+;Checks to make sure it doesn't overlap any previously placed ships
+;===========================================================	
 	start:
 		mov lowerbound, 1
 		mov upperbound, 2
@@ -2301,7 +2335,15 @@ PlaceComputerDestroyer PROC
 	ret
 PlaceComputerDestroyer ENDP
 
+;=================================================
 PlaceComputerSweeper PROC
+;=================================================
+;Fills the computer submarine ship array
+;
+;Randomly pick horizontal or vertical
+;Picks a point on the map and fills the array in the right direction
+;Checks to make sure it doesn't overlap any previously placed ships
+;=================================================	
 	start:
 		mov lowerbound, 1
 		mov upperbound, 2
@@ -2339,7 +2381,15 @@ PlaceComputerSweeper PROC
 		ret
 PlaceComputerSweeper ENDP
 
+;=================================================
 PlaceHorizontal PROC
+;=================================================
+; Picks a column point of length of map - ship health
+; to ensure the ship stays within the bounds of the map
+; Picks a random row coordinate
+;
+; Recieves: Pointer (ESI) to the ship array to be filled
+;=================================================
 
 	mov bh, ColMax
 	sub bh, bl
@@ -2352,19 +2402,27 @@ PlaceHorizontal PROC
 	mov [esi], al
 	dec esi
 
-	movzx ebx, RowMax						;1st row coorinate
+	movzx ebx, RowMax			;1st row coorinate
 	mov upperbound, ebx
 	movzx ebx, RowMin
 	mov lowerbound, ebx
 	call BetterRandomNumber
-	mov currentRow, al						;dh = row coordinate
+	mov currentRow, al			;dh = row coordinate
 	mov [esi], al
 	inc esi
 
 	ret
 PlaceHorizontal ENDP
 
+;=================================================
 PlaceVertical PROC
+;=================================================
+; Picks a row point of map height - ship length
+; to ensure the ship stays in the bounds
+; Picks a random column coordinate
+;
+; Recieves: Pointer (ESI) to the ship array to be filled
+;=================================================
 
 	mov bh, RowMax
 	sub bh, bl
@@ -2373,7 +2431,7 @@ PlaceVertical PROC
 	movzx ebx, RowMin
 	mov lowerbound, ebx
 	call BetterRandomNumber
-	mov currentRow, al							;dh = row coordinate
+	mov currentRow, al			;dh = row coordinate
 	mov [esi], al
 	inc esi
 
@@ -2382,13 +2440,20 @@ PlaceVertical PROC
 	movzx ebx, ColMin
 	mov lowerbound, ebx
 	call BetterRandomOdd
-	mov currentCol, al					;dl=col coordinate
+	mov currentCol, al			;dl=col coordinate
 	mov [esi], al
 
 	ret
 PlaceVertical ENDP
 
+;=================================================
 FillArrayVertically PROC
+;=================================================
+; Fills a ship array in the vertical direction
+
+Recieves: Pointer (ESI) to ship array to be filled
+;		with first point established
+;=================================================
 	mov dh, currentRow
 	mov dl, currentCol
 
@@ -2402,7 +2467,15 @@ FillArrayVertically PROC
 
 ret
 FillArrayVertically ENDP
+
+;=================================================
 FillArrayHorizontally PROC
+;=================================================
+; Fills a ship array in the horizontal direction
+; 
+; Recieves: Pointer (ESI) to ship array to be filled
+;		with first point established
+;=================================================
 mov dh, currentRow
 mov dl, currentCol
 
@@ -2417,7 +2490,15 @@ mov dl, currentCol
 ret
 FillArrayHorizontally ENDP
 
+;=================================================
 CheckRandPlacementCollision PROC
+;=================================================
+; Check whether or not a ship collides with previously placed ships
+;
+; Recieves: Pointer (ESI) to the ship we are checking
+;	    Health of that ship (ECX)
+; Returns: matches: Number of matches found
+;=================================================
 	mov matches, 0
 	mov ebx, esi
 	mov edx, ecx
@@ -2458,7 +2539,14 @@ CheckRandPlacementCollision PROC
 ret
 CheckRandPlacementCollision ENDP
 
+;=======================================================
 CheckShipCollision PROC uses EBX EDX
+;=======================================================
+; Double Loop to check if any point in the two ship arrays match
+;
+; Recieves: Pointers to both ships (ESI, EDI)
+;	    Health of each ship (ECX, currentshiphealth)
+;=================================================
 	mov al, 0
 	LoopOuter:
 		mov bh, [esi]
@@ -2490,13 +2578,13 @@ CheckShipCollision PROC uses EBX EDX
 ret
 CheckShipCollision ENDP
 
-;-----------------------------------------------------
-; BetterRandomNumber
+;=================================================
+BetterRandomNumber PROC
+;=================================================
 ; produces a random int with lower and upper bound
 ; Receives: upperbound, lowerbound
 ; Returns: EAX = the random int
-;-----------------------------------------------------
-BetterRandomNumber proc
+;=================================================
 
 	mov ebx, lowerbound
 	mov eax, upperbound
@@ -2506,17 +2594,17 @@ BetterRandomNumber proc
 	add eax, ebx
 
 ret
-BetterRandomNumber endp
+BetterRandomNumber ENDP
 
-;-----------------------------------------------------
-; BetterRandomOdd
-; produces a random odd int with lower and upper bound
+;=================================================
+BetterRandomOdd PROC
+;=================================================
+; Produces a random odd int with lower and upper bound
 ; (Column coordinates are only odd numbers)
+;
 ; Receives: upperbound, lowerbound
 ; Returns: EAX = the random int
-;-----------------------------------------------------
-
-BetterRandomOdd proc
+;=================================================
 
 	mov ebx, lowerbound
 	mov eax, upperbound
@@ -2544,7 +2632,11 @@ BetterRandomOdd proc
 ret
 BetterRandomOdd endp
 
+;==============================
 PrintComputerArrays PROC
+;==============================
+;Print the arrays of all computer ships
+;=================================================
 
 mov esi, OFFSET ComputerCarrierShipArray
 mov ecx, lengthof ComputerCarrierShipArray
@@ -2568,7 +2660,13 @@ call PrintArray
 ret
 PrintComputerArrays ENDP
 
+;=================================================
 PrintArray PROC
+;=================================================
+;Print an array
+;
+;Recieves: pointer (ESI), ECX
+;=================================================
 
 	mov eax, 0
 	loopx:
@@ -2581,8 +2679,14 @@ PrintArray PROC
 ret
 PrintArray ENDP
 
+;=================================================
 PlayerTurn PROC
-
+;=================================================
+; Notifies user than it is their turn
+; Waits for mouse click coordinates
+; Checks outcome
+; Redraws the maps
+;=================================================
 	call ClearDirections
 	
 	mov dl, 20
@@ -2623,7 +2727,14 @@ PlayerHitMessage BYTE "Player has Hit!", 0
 
 .code
 
+;=================================================
 CheckPlayerAttack PROC
+;=================================================
+; Checks whether a PlayerTurn is a hit or a miss
+; If hit : determine which ship, and adjust healths
+;
+; Recives: mouse click coordinates (rowCoordinate, ColumnCoordinate)
+;=================================================
 
 	mov ax, rowCoordinate
 	mov bx, columnCoordinate
@@ -2898,7 +3009,12 @@ CheckPlayerAttack PROC
 	ret
 CheckPlayerAttack ENDP
 
+;=================================================
 RegisterPlayerHit PROC
+;=================================================
+; Prints a red X in the spot of a hit
+; Notifies user that their click was a hit
+;=================================================
 
 	mov eax, 0
 	mov al, ComputerHealth
@@ -2935,7 +3051,12 @@ RegisterPlayerHit PROC
 	ret
 RegisterPlayerHit ENDP
 
+;======================================
 RegisterPlayerMiss PROC
+;======================================
+; Prints white O in spot of the miss
+; Notifies user their click was a miss
+;======================================
 
 	mov edi, OFFSET ComputerMapViewable
 	add edi, mapIndex
@@ -2967,8 +3088,17 @@ RegisterPlayerMiss PROC
 	ret
 RegisterPlayerMiss ENDP
 
+;=======================================
 ComputerTurn PROC
-
+;=======================================
+; Notifies user it is the computers turn
+; If we are looking for a ship:
+;	generate random point
+; If we've found a ship and trying to sink it:
+;	call SmartComputerTurn
+; Checks if turn was hit or miss
+; Updates the map accordingly
+;=======================================
 	mov eax, lightRed
 	call SetTextColor
 
@@ -3005,8 +3135,8 @@ ComputerTurn PROC
 	mov eax, white
 	call SetTextColor
 
-call Pause2
-movzx eax, LastTurnOutcome
+	call Pause2
+	movzx eax, LastTurnOutcome
 
 	start:
 		cmp HitStreak, 0
@@ -3129,13 +3259,27 @@ movzx eax, LastTurnOutcome
 			ret
 ComputerTurn ENDP
 
-SmartComputerTurn PROC			;6 23/15 41
+;==================================================
+SmartComputerTurn PROC
+;==================================================
+; Generates a point of attack relative to a previous hit
+; 
+; Start left, (if miss), go up, (if miss), go right...
+; (If hit): continue in this direction
+; (If miss & hit streak > 1 & ship not sunk): go opposite of initial hit
+;
+; Recives: hitStreak: how many hits have there been in a row
+; 	   currentDirection: which direction are we going in
+;	   InitialHit: Coordinates of the initial hit
+;	   LastTurn: Coordinates of the last turn
+;	   LastTurnOutcome: explained below
+;===================================================
 
-	cmp LastTurnOutcome, 1					;begin streak
+	cmp LastTurnOutcome, 1				;begin streak
 	je left
-	cmp LastTurnOutcome, 2					;continue in a direction
+	cmp LastTurnOutcome, 2				;continue in a direction
 	je continueStreak
-	cmp LastTurnOutcome, 3					;pick a new direction (hit then miss without sinking)
+	cmp LastTurnOutcome, 3				;pick a new direction (hit then miss without sinking)
 	je backtrack
 	jmp error
 
@@ -3269,7 +3413,17 @@ SmartComputerTurn PROC			;6 23/15 41
 ret
 SmartComputerTurn ENDP
 
+;====================================
 CheckComputerTurnHit PROC
+;====================================
+; Checks which ship was hit
+; Adjusts health accordingly
+; If ship sunk, notify parent to print explosion
+;
+;Recieves: Pointer to coordinate on the map (EDI)
+;Returns: CallExplosion (0 if no, 1 if yes)
+;=====================================
+
 	mov dh, 0
 
 	mov bl, 66
@@ -3350,7 +3504,15 @@ CheckComputerTurnHit PROC
 	ret
 CheckComputerTurnHit ENDP
 
+;======================================
 SaveHitInfo PROC
+;======================================
+;Save hit info for next turn
+;
+;Returns: LastHit : the hit that just happend
+;	  InitialHit : if this is the initial hit
+;======================================
+
 
 	mov LastTurnOutcome, 2
 	movzx eax, RowCoordinate
@@ -3373,7 +3535,11 @@ SaveHitInfo PROC
 ret
 SaveHitInfo ENDP
 
+;================================
 PlayerShipSunk PROC
+;================================
+; Prints explosion
+;================================
 
 	call Clrscr
 
@@ -3585,7 +3751,11 @@ PlayerShipSunk PROC
 	ret
 PlayerShipSunk ENDP
 
+;================================
 ComputerShipSunk PROC
+;================================
+; Prints explosion
+;================================
 
 	call Clrscr
 
@@ -3797,13 +3967,22 @@ ComputerShipSunk PROC
 	ret
 ComputerShipSunk ENDP
 
+;================================
 Pause2 PROC
+;================================
+; Generates a delay of 2 seconds
+;================================
+
 mov eax, 2000
 call Delay
 ret
 Pause2 ENDP
 
+;================================
 PlayerWin PROC
+;================================
+; Print VICTORY ASCII
+;================================
 	call Clrscr
 
 	INVOKE SndPlaySound, OFFSET victorySound, 0001
@@ -3842,7 +4021,12 @@ PlayerWin PROC
 	ret
 PlayerWin ENDP
 
+;================================
 ComputerWin PROC
+;================================
+; Print DEFEAT ASCII
+;================================
+
 	call Clrscr
 
 	INVOKE SndPlaySound, OFFSET defeatSound, 0001
