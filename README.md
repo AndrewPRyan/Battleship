@@ -1,5 +1,17 @@
 # Battleship
 Battleship created in MASM32.
+Lines: 4086
+#### Contributions
+
+* Andrew: Created maps and UI. Integrated score system and UI adjustments including ship health and directions. Implemented mouse clicks for both left and right click. Created player ship placement and the algorithm behind the player turn. Created all UI screens such as splash screen, explosion screens, and victory/defeat screen. Implemented sonud.
+
+* Brandie: Created the entirety of the computer. This includes random and automated ship placement and attacking the player map. Created complex algorithms to ensure that the computer is smart enough to beat the player. Helped on perfecting UI elements and statistics. Created introduction screen at the beginning of the game.
+
+#### Known Bugs: 
+
+* Ships can sometimes be placed outside of map bounds
+* Very rarily, an enemy ship may be deployed one cell outside of the map bounds
+* Under certain circumstances, the UI might look innacurate due to displaying of integer values
 
 ## Getting Started
 
